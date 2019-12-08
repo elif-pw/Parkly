@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pw.react.backend.reactbackend.appException.UnauthorizedException;
-import pw.react.backend.reactbackend.dao.CompanyRepository;
-import pw.react.backend.reactbackend.model.Company;
-import pw.react.backend.reactbackend.service.CompanyService;
+import pw.react.backend.reactbackend.dao.ParkingRepository;
+import pw.react.backend.reactbackend.model.Parking;
+import pw.react.backend.reactbackend.service.ParkingService;
 import pw.react.backend.reactbackend.service.SecurityService;
 
 import javax.validation.Valid;
@@ -26,27 +26,27 @@ import java.util.List;
 import static java.util.stream.Collectors.joining;
 
 @RestController
-@RequestMapping(path = "/companies")
-public class CompanyController {
+@RequestMapping(path = "/Parking")
+public class ParkingController {
 
-    private final Logger logger = LoggerFactory.getLogger(CompanyController.class);
+    private final Logger logger = LoggerFactory.getLogger(ParkingController.class);
 
-    private CompanyRepository repository;
+    private ParkingRepository repository;
     private SecurityService securityService;
-    private CompanyService companyService;
+    private ParkingService ParkingService;
 
     @Autowired
-    public CompanyController(CompanyRepository repository, SecurityService securityService, CompanyService companyService) {
+    public ParkingController(ParkingRepository repository, SecurityService securityService, ParkingService ParkingService) {
         this.repository = repository;
         this.securityService = securityService;
-        this.companyService = companyService;
+        this.ParkingService = ParkingService;
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<String> createCompanies(@RequestHeader HttpHeaders headers, @Valid @RequestBody List<Company> companies) {
+    public ResponseEntity<String> createCompanies(@RequestHeader HttpHeaders headers, @Valid @RequestBody List<Parking> companies) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
-            List<Company> result = repository.saveAll(companies);
+            List<Parking> result = repository.saveAll(companies);
             return ResponseEntity.ok(result.stream().map(c -> String.valueOf(c.getId())).collect(joining(",")));
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access to resources.");
@@ -61,18 +61,18 @@ public class CompanyController {
         );
     }
 
-    @GetMapping(path = "/{companyId}")
-    public ResponseEntity<Company> getCompany(@RequestHeader HttpHeaders headers,
-                                              @PathVariable Long companyId) {
+    @GetMapping(path = "/{ParkingId}")
+    public ResponseEntity<Parking> getParking(@RequestHeader HttpHeaders headers,
+                                              @PathVariable Long ParkingId) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
-            return ResponseEntity.ok(repository.findById(companyId).orElseGet(() -> Company.EMPTY));
+            return ResponseEntity.ok(repository.findById(ParkingId).orElseGet(() -> Parking.EMPTY));
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Company.EMPTY);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Parking.EMPTY);
     }
 
     @GetMapping(path = "")
-    public ResponseEntity<Collection<Company>> getAllCompanies(@RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Collection<Parking>> getAllCompanies(@RequestHeader HttpHeaders headers) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
             return ResponseEntity.ok(repository.findAll());
@@ -80,31 +80,31 @@ public class CompanyController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.emptyList());
     }
 
-    @PutMapping(path = "/{companyId}")
-    public ResponseEntity<Company> updateCompany(@RequestHeader HttpHeaders headers,
-                                                 @PathVariable Long companyId,
-                                                 @RequestBody Company updatedCompany) {
+    @PutMapping(path = "/{ParkingId}")
+    public ResponseEntity<Parking> updateParking(@RequestHeader HttpHeaders headers,
+                                                 @PathVariable Long ParkingId,
+                                                 @RequestBody Parking updatedParking) {
         logHeaders(headers);
-        Company result;
+        Parking result;
         if (securityService.isAuthorized(headers)) {
-            result = companyService.updateCompany(companyId, updatedCompany);
-            if (Company.EMPTY.equals(result)) {
-                return ResponseEntity.badRequest().body(updatedCompany);
+            result = ParkingService.updateParking(ParkingId, updatedParking);
+            if (Parking.EMPTY.equals(result)) {
+                return ResponseEntity.badRequest().body(updatedParking);
             }
             return ResponseEntity.ok(result);
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Company.EMPTY);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Parking.EMPTY);
     }
 
-    @DeleteMapping(path = "/{companyId}")
-    public ResponseEntity<String> updateCompany(@RequestHeader HttpHeaders headers, @PathVariable Long companyId) {
+    @DeleteMapping(path = "/{ParkingId}")
+    public ResponseEntity<String> updateParking(@RequestHeader HttpHeaders headers, @PathVariable Long ParkingId) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
-            boolean deleted = companyService.deleteCompany(companyId);
+            boolean deleted = ParkingService.deleteParking(ParkingId);
             if (!deleted) {
-                return ResponseEntity.badRequest().body(String.format("Company with id %s does not exists.", companyId));
+                return ResponseEntity.badRequest().body(String.format("Parking with id %s does not exists.", ParkingId));
             }
-            return ResponseEntity.ok(String.format("Company with id %s deleted.", companyId));
+            return ResponseEntity.ok(String.format("Parking with id %s deleted.", ParkingId));
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access to resources.");
     }
