@@ -43,10 +43,10 @@ public class ParkingController {
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<String> createCompanies(@RequestHeader HttpHeaders headers, @Valid @RequestBody List<Parking> companies) {
+    public ResponseEntity<String> createCompanies(@RequestHeader HttpHeaders headers, @Valid @RequestBody List<Parking> parkings) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
-            List<Parking> result = repository.saveAll(companies);
+            List<Parking> result = repository.saveAll(parkings);
             return ResponseEntity.ok(result.stream().map(c -> String.valueOf(c.getId())).collect(joining(",")));
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access to resources.");

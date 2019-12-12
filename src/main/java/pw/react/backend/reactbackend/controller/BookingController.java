@@ -37,10 +37,10 @@ public class BookingController {
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<String> createCompanies(@RequestHeader HttpHeaders headers, @Valid @RequestBody List<Booking> companies) {
+    public ResponseEntity<String> createCompanies(@RequestHeader HttpHeaders headers, @Valid @RequestBody List<Booking> bookings) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
-            List<Booking> result = repository.saveAll(companies);
+            List<Booking> result = repository.saveAll(bookings);
             return ResponseEntity.ok(result.stream().map(c -> String.valueOf(c.getId())).collect(joining(",")));
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access to resources.");
@@ -96,7 +96,7 @@ public class BookingController {
         if (securityService.isAuthorized(headers)) {
             boolean deleted = BookingService.deleteBooking(BookingId);
             if (!deleted) {
-                return ResponseEntity.badRequest().body(String.format("Parking with id %s does not exists.", BookingId));
+                return ResponseEntity.badRequest().body(String.format("Booking with id %s does not exists.", BookingId));
             }
             return ResponseEntity.ok(String.format("Parking with id %s deleted.", BookingId));
         }

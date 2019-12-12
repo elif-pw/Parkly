@@ -1,16 +1,10 @@
 package pw.react.backend.reactbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
-import pw.react.backend.reactbackend.utils.JsonDateDeserializer;
-import pw.react.backend.reactbackend.utils.JsonDateSerializer;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Currency;
 
 @Entity
 @Table(name = "Parking")
@@ -26,12 +20,12 @@ public class Parking implements Serializable {
     @Column(name="parkingId")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "price")
-    private Currency price;
+    @Column(name = "price", nullable = false)
+    private int price;
     @Column(name = "description")
     private String description;
-    @Column(name = "nspots")
+    @Column(name = "nspots", nullable = false)
     private int nspots;
 }

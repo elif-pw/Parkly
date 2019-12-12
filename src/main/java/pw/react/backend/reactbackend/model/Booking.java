@@ -26,19 +26,19 @@ public class Booking implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @ManyToOne
-    @JoinColumn(name = "parkingId")
+    @JoinColumn(name = "parkingId", nullable = false)
     private Parking parkingId;
     @ManyToOne
-    @JoinColumn(name = "parkingSpotId")
+    @JoinColumn(name = "parkingSpotId", nullable = false)
     private ParkingSpot parkingSpotId;
-    @Column(name = "userId")
+    @Column(name = "userId", nullable = false)
     private int userId;
 
-    @Column(name = "startDate")
+    @Column(name = "startDate", nullable = false)
     @JsonDeserialize(using = JsonDateDeserializer.class)
     @JsonSerialize(using = JsonDateSerializer.class)
     private LocalDateTime startDateTime;
-    @Column(name = "endDate")
+    @Column(name = "endDate", nullable = false)
     @JsonDeserialize(using = JsonDateDeserializer.class)
     @JsonSerialize(using = JsonDateSerializer.class)
     private LocalDateTime endDate;

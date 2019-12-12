@@ -26,7 +26,6 @@ import static java.util.stream.Collectors.joining;
 @RequestMapping(path = "/ParkingSpot")
 public class ParkingSpotController {
 
-
     private final Logger logger = LoggerFactory.getLogger(ParkingSpotController.class);
 
     private ParkingSpotRepository repository;
@@ -41,10 +40,10 @@ public class ParkingSpotController {
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<String> createCompanies(@RequestHeader HttpHeaders headers, @Valid @RequestBody List<ParkingSpot> companies) {
+    public ResponseEntity<String> createCompanies(@RequestHeader HttpHeaders headers, @Valid @RequestBody List<ParkingSpot> parkingspots) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
-            List<ParkingSpot> result = repository.saveAll(companies);
+            List<ParkingSpot> result = repository.saveAll(parkingspots);
             return ResponseEntity.ok(result.stream().map(c -> String.valueOf(c.getId())).collect(joining(",")));
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access to resources.");
@@ -100,12 +99,11 @@ public class ParkingSpotController {
         if (securityService.isAuthorized(headers)) {
             boolean deleted = ParkingSpotService.deleteParkingSpot(parkingSpotId);
             if (!deleted) {
-                return ResponseEntity.badRequest().body(String.format("Parking with id %s does not exists.", parkingSpotId));
+                return ResponseEntity.badRequest().body(String.format("Parking spot with id %s does not exists.", parkingSpotId));
             }
-            return ResponseEntity.ok(String.format("Parking with id %s deleted.", parkingSpotId));
+            return ResponseEntity.ok(String.format("Parking spot with id %s deleted.", parkingSpotId));
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access to resources.");
     }
-
 
 }
