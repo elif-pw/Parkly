@@ -1,0 +1,67 @@
+
+
+div#wrapperHeader {
+  width:100%;
+  height:254px; /* height of the background image? */
+  background:url(images/parking1.jpg) repeat-x 0 0;
+  text-align:center;
+}
+
+div#wrapperHeader div#header {
+  width:1000px;
+  height:200px;
+  margin:0 auto;
+}
+
+div#wrapperHeader div#header img {
+  width:50px; /* the width of the logo image */
+  height:50px; /* the height of the logo image */
+  margin:0 auto;
+}
+
+body{
+  text-align: center;
+  background-color: #b3b3b3;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

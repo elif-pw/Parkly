@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
-
+@CrossOrigin(origins = { "http://localhost:3000"})
 @RestController
 @RequestMapping(path = "/ParkingSpot")
 public class ParkingSpotController {
@@ -40,7 +40,7 @@ public class ParkingSpotController {
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<String> createCompanies(@RequestHeader HttpHeaders headers, @Valid @RequestBody List<ParkingSpot> parkingspots) {
+    public ResponseEntity<String> createParkingSpot(@RequestHeader HttpHeaders headers, @Valid @RequestBody List<ParkingSpot> parkingspots) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
             List<ParkingSpot> result = repository.saveAll(parkingspots);
@@ -59,7 +59,7 @@ public class ParkingSpotController {
     }
 
     @GetMapping(path = "/{ParkingSpotId}")
-    public ResponseEntity<ParkingSpot> getParking(@RequestHeader HttpHeaders headers,
+    public ResponseEntity<ParkingSpot> getParkingSpot(@RequestHeader HttpHeaders headers,
                                               @PathVariable Long ParkingSpotId) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
@@ -69,7 +69,7 @@ public class ParkingSpotController {
     }
 
     @GetMapping(path = "")
-    public ResponseEntity<Collection<ParkingSpot>> getAllCompanies(@RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Collection<ParkingSpot>> getAllParkingSpots(@RequestHeader HttpHeaders headers) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
             return ResponseEntity.ok(repository.findAll());
@@ -78,7 +78,7 @@ public class ParkingSpotController {
     }
 
     @PutMapping(path = "/{ParkingSpotId}")
-    public ResponseEntity<ParkingSpot> updateParking(@RequestHeader HttpHeaders headers,
+    public ResponseEntity<ParkingSpot> updateParkingSpot(@RequestHeader HttpHeaders headers,
                                                  @PathVariable Long ParkingSpotId,
                                                  @RequestBody ParkingSpot updatedParkingSpot) {
         logHeaders(headers);
@@ -94,7 +94,7 @@ public class ParkingSpotController {
     }
 
     @DeleteMapping(path = "/{ParkingSpotId}")
-    public ResponseEntity<String> updateParking(@RequestHeader HttpHeaders headers, @PathVariable Long parkingSpotId) {
+    public ResponseEntity<String> deleteParkingSpot(@RequestHeader HttpHeaders headers, @PathVariable Long parkingSpotId) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
             boolean deleted = ParkingSpotService.deleteParkingSpot(parkingSpotId);

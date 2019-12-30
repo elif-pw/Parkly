@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
-
+@CrossOrigin(origins = { "http://localhost:3000" })
 @RestController
 @RequestMapping(path = "/Booking")
 public class BookingController {

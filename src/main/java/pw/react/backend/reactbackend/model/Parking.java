@@ -22,10 +22,14 @@ public class Parking implements Serializable {
     private long id;
     @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "address", nullable = false)
+    private String address;
     @Column(name = "price", nullable = false)
-    private int price;
+    private float price;
     @Column(name = "description")
     private String description;
     @Column(name = "nspots", nullable = false)
     private int nspots;
+    @Column(name = "is247", nullable = false)
+    private Boolean is247;
 }

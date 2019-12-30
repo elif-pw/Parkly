@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
-
+@CrossOrigin(origins = { "http://localhost:3000"})
 @RestController
 @RequestMapping(path = "/Parking")
 public class ParkingController {
@@ -43,7 +43,7 @@ public class ParkingController {
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<String> createCompanies(@RequestHeader HttpHeaders headers, @Valid @RequestBody List<Parking> parkings) {
+    public ResponseEntity<String> createParkings(@RequestHeader HttpHeaders headers, @Valid @RequestBody List<Parking> parkings) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
             List<Parking> result = repository.saveAll(parkings);
@@ -72,7 +72,7 @@ public class ParkingController {
     }
 
     @GetMapping(path = "")
-    public ResponseEntity<Collection<Parking>> getAllCompanies(@RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Collection<Parking>> getAllParkings(@RequestHeader HttpHeaders headers) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
             return ResponseEntity.ok(repository.findAll());
@@ -97,7 +97,7 @@ public class ParkingController {
     }
 
     @DeleteMapping(path = "/{ParkingId}")
-    public ResponseEntity<String> updateParking(@RequestHeader HttpHeaders headers, @PathVariable Long ParkingId) {
+    public ResponseEntity<String> deleteParking(@RequestHeader HttpHeaders headers, @PathVariable Long ParkingId) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
             boolean deleted = ParkingService.deleteParking(ParkingId);
