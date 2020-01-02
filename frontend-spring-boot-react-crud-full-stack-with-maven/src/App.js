@@ -5,22 +5,28 @@ import React, { Component } from 'react';
 import ParkingList from "./components/ParkingList";
 import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AddParking from "./components/AddParking";
+import LoginPage from "./components/LoginPage";
+import SignUpPage from "./components/SignUpPage.js";
+import AdminPage from "./components/AdminPage";
+
+
 
 class App extends Component {
     render() {
         return (
             <div className="App">
-
-                <div id="wrapperHeader">
-                    <div id="header">
-                        <img src={logo} className="App-logo" alt="logo" />
-                    </div>
-
-                </div>
-
                 <div className="container">
                 <Router>
                     <Switch>
+                        <Route exact path="/">
+                            <LoginPage/>
+                        </Route>
+                        <Route exact path="/signup">
+                            <SignUpPage />
+                        </Route>
+                        <Route exact path="/Admin">
+                            <AdminPage/>
+                        </Route>
                         <Route exact path="/Booking">
                             <Booking/>
                         </Route>
@@ -37,6 +43,5 @@ class App extends Component {
         );
     }
 }
-
 
 export default App;

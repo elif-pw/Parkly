@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {withRouter} from 'react-router-dom';
 import ParkingDataService from "../service/ParkingDataService";
 import {
@@ -9,12 +8,13 @@ import {
     Link
 } from "react-router-dom";
 import './Component.css'
+import Header from "./Header.js"
+import Footer from "./Footer.js"
 
 class AddParking extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
             id: '',
             name: '',
             address:'',
@@ -51,7 +51,6 @@ class AddParking extends Component {
 
     };
 
-
     onChangeEvent(event) {
         this.setState({[event.target.name]: event.target.value});
     }
@@ -62,21 +61,14 @@ class AddParking extends Component {
         });
     }
 
-
-
     render() {
         return (
             <div>
-                <Link to="/Parking">
-                    <button type="button"
-                            onClick={()=>this.props.history.push("/")}>Back
-                    </button>
-                </Link>
-                <form className="container" onSubmit={this.handleFormSubmit}>
+                <Header/>
+                <form className="newParkingForm" onSubmit={this.handleFormSubmit}>
                     <fieldset>
-                        <h3 className="formtext">Parking Details</h3>
-
-                        <input
+                        <h3>Parking Details</h3>
+                        <input className="input"
                             type="text"
                             name='name'
                             placeholder="Enter Name"
@@ -86,7 +78,7 @@ class AddParking extends Component {
 
                         <br/>
                         <br/>
-                        <input
+                        <input className="input"
                             type="number"
                             name='price'
                             placeholder="Enter the price"
@@ -95,7 +87,7 @@ class AddParking extends Component {
                         />
                         <br/><br/>
 
-                        <input
+                        <input className="input"
                             type="text"
                             name='adress'
                             placeholder="Enter the address"
@@ -104,7 +96,7 @@ class AddParking extends Component {
                         />
                         <br/>
                         <br/>
-                        <input
+                        <input className="input"
                             type="text"
                             name='address'
                             placeholder="Enter the address"
@@ -112,12 +104,12 @@ class AddParking extends Component {
                             required
                         />
                         <br/><br/>
-                        <label>Is it open 24/7?</label>
+                        <label>Opened 24/7</label>
                         <input type="radio" name="is247"
                                onChange={this.onActivityChanged}/>
                         <br/><br/>
 
-                        <input
+                        <input className="input"
                             type="number"
                             name='nspots'
                             placeholder="Enter the number of spots"
@@ -129,20 +121,21 @@ class AddParking extends Component {
 
 
                         <br/><br/>
-                        <button type="submit" onClick={this.handleFormSubmit}>Create</button>
+                        <div>
+                        <button type="submit" className="button1" onClick={this.handleFormSubmit}>Create</button>
                         <br/><br/>
                         <Link to="/Parking">
-                            <button type="button"
+                            <button type="button" className="button2"
                                     onClick={()=>this.props.history.push("/")}>Cancel
                             </button>
                         </Link>
+                        </div>
                     </fieldset>
                 </form>
+                <Footer/>
             </div>
         );
     }
-
-
 }
 
 export default withRouter(AddParking)

@@ -16,6 +16,8 @@ class ParkingDataService {
     createParking(parking){
         return axios.post(`${API_URL}/Parking`, parking);
     }
+
+
 }
 
 export default new ParkingDataService()

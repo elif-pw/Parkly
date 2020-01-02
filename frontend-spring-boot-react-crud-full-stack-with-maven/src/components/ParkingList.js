@@ -29,11 +29,9 @@ class ParkingList extends Component {
                 response => {
                     console.log(response);
                     this.setState({ parkings: response.data })
-
                 }
             )
     }
-
 
     render() {
         return (
@@ -41,12 +39,8 @@ class ParkingList extends Component {
                 <Link to="/newParking">
                     <button >Create new Parking</button>
                 </Link>
-
-
-
             <div className="container">
                 <h3>Parkings</h3>
-
                     <fieldset>
                     <table className="table">
                         <thead>
@@ -73,13 +67,11 @@ class ParkingList extends Component {
                                         <td>{parking.nspots}</td>
                                         <td>{parking.is247}</td>
                                     </tr>
-
                             )
                         }
                         </tbody>
                     </table>
                     </fieldset>
-
             </div>
             </div>
         )
