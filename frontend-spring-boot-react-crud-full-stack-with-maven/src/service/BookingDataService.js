@@ -3,15 +3,11 @@ import axios from 'axios'
 
 const API_URL = 'http://localhost:8080'
 
-class ParkingDataService {
+class BookingDataService {
 
-    retrieveAllParkings() {
-        console.log('executed service')
+    retrieveAllBookings() {
         return axios.get(`${API_URL}/Booking`);
-        // { headers: { authorization: 'Basic ' + window.
-        //         btoa("root" + ":" + "root") }});
-
     }
 }
 
-export default new ParkingDataService()
+export default new BookingDataService()

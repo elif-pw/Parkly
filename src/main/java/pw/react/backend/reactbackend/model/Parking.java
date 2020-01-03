@@ -25,7 +25,7 @@ public class Parking implements Serializable {
     @Column(name = "address", nullable = false)
     private String address;
     @Column(name = "price", nullable = false)
-    private float price;
+    private int price;
     @Column(name = "description")
     private String description;
     @Column(name = "nspots", nullable = false)

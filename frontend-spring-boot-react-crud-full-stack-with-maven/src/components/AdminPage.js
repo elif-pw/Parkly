@@ -12,6 +12,7 @@ import Footer from "./Footer.js"
 import UsersTable from "./UsersTable.js"
 import Histogram from 'react-chart-histogram';
 
+
 class AdminPage extends React.Component{
     constructor(props) {
         super(props);
@@ -52,9 +53,12 @@ class AdminPage extends React.Component{
                     <li className="genblock3">TOTAL USERS</li>
                     </ul>
                 </div>
+
                 <div>
                     <UsersTable  />
                 </div>
+
+
                 </div>
                 <div className="rightBlock">
                     <Histogram
@@ -66,6 +70,7 @@ class AdminPage extends React.Component{
                       />
                 </div>
                 <Footer />
+
             </div>
         );
     }

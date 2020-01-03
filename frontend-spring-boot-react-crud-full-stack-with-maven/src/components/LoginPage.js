@@ -66,7 +66,6 @@ class LoginPage extends React.Component{
                     <Button className="logButton" block bsSize="large" disabled={!this.validateForm} type="submit">
                       Login
                     </Button>
-                    <h5>Do not have account? Then join us!</h5><a href="/signup">Sign up.</a>
                   </form>
                 </div>
               );

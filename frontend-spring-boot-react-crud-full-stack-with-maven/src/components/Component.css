@@ -224,7 +224,7 @@ p {
   text-decoration: none;
   outline: none;
   color: #fff;
-
+    margin: 0 5px;
   border: none;
   border-radius: 5px;
   box-shadow: 0 3px #999;
@@ -236,6 +236,10 @@ p {
 .button2{
     background-color: #f4511e;
 }
+.button3{
+    background-color: #c4ff56;
+}
+
 
 
 .newParkingForm button:active {
@@ -377,3 +381,4 @@ p {
 .loginLogo {
     width: 250px;
 }
+

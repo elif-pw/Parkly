@@ -8,6 +8,8 @@ import {
     withRouter
 } from "react-router-dom";
 import './Component.css'
+import Header from "./Header";
+import Footer from "./Footer";
 
 class ParkingList extends Component {
     constructor(props) {
@@ -36,10 +38,11 @@ class ParkingList extends Component {
     render() {
         return (
             <div>
-                <Link to="/newParking">
-                    <button >Create new Parking</button>
+                <Header/>
+                <Link to="/newparking">
+                    <button className="logButton" >Create new Parking</button>
                 </Link>
-            <div className="container">
+            <div className="newParkingForm">
                 <h3>Parkings</h3>
                     <fieldset>
                     <table className="table">
@@ -65,7 +68,10 @@ class ParkingList extends Component {
                                         <td>{parking.price}</td>
                                         <td>{parking.description}</td>
                                         <td>{parking.nspots}</td>
-                                        <td>{parking.is247}</td>
+                                        <td>{parking.is247?"yes":"no"}</td>
+                                        <td> <Link to={"/editparking/"+parking.id}>
+                                            <button className="button1">Edit</button></Link></td>
+                                        <td><button className="button2">Map</button></td>
                                     </tr>
                             )
                         }
@@ -73,6 +79,7 @@ class ParkingList extends Component {
                     </table>
                     </fieldset>
             </div>
+                <Footer/>
             </div>
         )
     }

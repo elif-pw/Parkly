@@ -34,13 +34,23 @@ public class Booking implements Serializable {
     @Column(name = "userId", nullable = false)
     private int userId;
 
+    @Column(name = "bookDate", nullable = false)
+    @JsonDeserialize(using = JsonDateDeserializer.class)
+    @JsonSerialize(using = JsonDateSerializer.class)
+    private LocalDateTime bookDate;
+
+    @Column(name = "paidAmount", nullable = false)
+    private int paidAmount;
+
     @Column(name = "startDate", nullable = false)
     @JsonDeserialize(using = JsonDateDeserializer.class)
     @JsonSerialize(using = JsonDateSerializer.class)
-    private LocalDateTime startDateTime;
+    private LocalDateTime startDate;
     @Column(name = "endDate", nullable = false)
     @JsonDeserialize(using = JsonDateDeserializer.class)
     @JsonSerialize(using = JsonDateSerializer.class)
     private LocalDateTime endDate;
+
+
 
 }

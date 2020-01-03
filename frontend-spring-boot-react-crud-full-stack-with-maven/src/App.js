@@ -1,13 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
-import Booking from "./components/Booking";
 import React, { Component } from 'react';
 import ParkingList from "./components/ParkingList";
 import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AddParking from "./components/AddParking";
 import LoginPage from "./components/LoginPage";
-import SignUpPage from "./components/SignUpPage.js";
 import AdminPage from "./components/AdminPage";
+import EditParking from "./components/EditParking";
 
 
 
@@ -18,23 +16,20 @@ class App extends Component {
                 <div className="container">
                 <Router>
                     <Switch>
-                        <Route exact path="/">
+                        <Route exact path="/login">
                             <LoginPage/>
                         </Route>
-                        <Route exact path="/signup">
-                            <SignUpPage />
-                        </Route>
-                        <Route exact path="/Admin">
+                        <Route exact path="/admin">
                             <AdminPage/>
                         </Route>
-                        <Route exact path="/Booking">
-                            <Booking/>
-                        </Route>
-                        <Route exact path="/Parking">
+                        <Route exact path="/parking">
                             <ParkingList/>
                         </Route>
-                        <Route exact path="/newParking">
+                        <Route exact path="/newparking">
                             <AddParking/>
+                        </Route>
+                        <Route exact path="/editparking/:id">
+                            <EditParking/>
                         </Route>
                     </Switch>
                 </Router>

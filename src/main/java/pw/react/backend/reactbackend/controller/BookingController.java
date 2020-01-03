@@ -37,7 +37,7 @@ public class BookingController {
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<String> createCompanies(@RequestHeader HttpHeaders headers, @Valid @RequestBody List<Booking> bookings) {
+    public ResponseEntity<String> createBookings(@RequestHeader HttpHeaders headers, @Valid @RequestBody List<Booking> bookings) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
             List<Booking> result = repository.saveAll(bookings);
@@ -56,7 +56,7 @@ public class BookingController {
     }
 
     @GetMapping(path = "/{BookingId}")
-    public ResponseEntity<Booking> getParking(@RequestHeader HttpHeaders headers,
+    public ResponseEntity<Booking> getBooking(@RequestHeader HttpHeaders headers,
                                                   @PathVariable Long BookingId) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
@@ -66,7 +66,7 @@ public class BookingController {
     }
 
     @GetMapping(path = "")
-    public ResponseEntity<Collection<Booking>> getAllCompanies(@RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Collection<Booking>> getAllBookings(@RequestHeader HttpHeaders headers) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
             return ResponseEntity.ok(repository.findAll());
@@ -75,7 +75,7 @@ public class BookingController {
     }
 
     @PutMapping(path = "/{BookingId}")
-    public ResponseEntity<Booking> updateParking(@RequestHeader HttpHeaders headers,
+    public ResponseEntity<Booking> updateBooking(@RequestHeader HttpHeaders headers,
                                                      @PathVariable Long BookingId,
                                                      @RequestBody Booking updatedParkingSpot) {
         logHeaders(headers);
@@ -91,7 +91,7 @@ public class BookingController {
     }
 
     @DeleteMapping(path = "/{BookingId}")
-    public ResponseEntity<String> updateParking(@RequestHeader HttpHeaders headers, @PathVariable Long BookingId) {
+    public ResponseEntity<String> deleteBooking(@RequestHeader HttpHeaders headers, @PathVariable Long BookingId) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
             boolean deleted = BookingService.deleteBooking(BookingId);
