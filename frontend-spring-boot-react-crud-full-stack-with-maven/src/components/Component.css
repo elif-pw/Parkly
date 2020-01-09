@@ -19,6 +19,10 @@
   color: #2054a0;
   transition:.3s linear;
 }
+body{
+
+    padding-bottom: 40px;
+}
 
 .userloggedin{
     float:right;
@@ -165,6 +169,8 @@ p {
     text-align:left;
     align-items:left;
     justify-content: left;
+
+    top: 0;
 }
 
 .Header ul {
@@ -175,9 +181,9 @@ p {
 .Header a {text-decoration: none; /*убираем подчеркивание текста ссылок*/}
 
 .Footer {
-    padding-top:20px;
+    padding: 10px 0;
     background-color: #2054a0;
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -208,10 +214,22 @@ p {
 .newParkingForm{
     text-align: center;
     margin:30px;
+    width: 400px;
     align-items: center;
     justify-content: center;
 }
 
+.parkingList{
+    text-align: center;
+    margin:30px;
+    width: 700px;
+    align-items: center;
+    justify-content: center;
+}
+th, td {
+    padding: 15px;
+    text-align: left;
+}
 
 .newParkingForm button {
 

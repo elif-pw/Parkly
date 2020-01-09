@@ -42,7 +42,7 @@ class ParkingList extends Component {
                 <Link to="/newparking">
                     <button className="logButton" >Create new Parking</button>
                 </Link>
-            <div className="newParkingForm">
+            <div className="parkingList">
                 <h3>Parkings</h3>
                     <fieldset>
                     <table className="table">
