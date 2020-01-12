@@ -1,28 +1,33 @@
 import axios from 'axios'
 
-
 const API_URL = 'http://localhost:8080'
+const DEPL_URL='http://parklybe.us-east-1.elasticbeanstalk.com'
 
 class ParkingDataService {
 
     retrieveAllParkings() {
         return axios.get(`${API_URL}/Parking`);
+
     }
-    retrieveParking(id){
+
+    retrieveParking(id) {
+
         return axios.get(`${API_URL}/Parking/${id}`);
     }
 
-    createParking(parking){
+    createParking(parking) {
+
         return axios.post(`${API_URL}/Parking`, parking);
+
     }
 
-    updateParking(id, parking){
+    updateParking(id, parking) {
         return axios.put(`${API_URL}/Parking/${id}`, parking);
     }
-    deleteParking(id){
+
+    deleteParking(id) {
         return axios.delete(`${API_URL}/Parking/${id}`)
     }
-
 
 
 }

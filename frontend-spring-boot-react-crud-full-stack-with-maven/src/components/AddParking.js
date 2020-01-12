@@ -34,19 +34,23 @@ const styles = {
         display: 'flex',
         flexWrap: 'wrap',
         maxHeight: '100%',
-
-
     },
+    MultiSelect: {
+        height: 100,
+        width: 60
+    }
 };
 
 class AddParking extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: '',
+
             name: '',
-            district: '',
+            city: '',
+            zip: '',
             address: '',
+            district: '',
             price: '',
             description: [],
             nspots: '',
@@ -62,22 +66,19 @@ class AddParking extends Component {
         this.renderSelected = this.renderSelected.bind(this);
     }
 
-    generateid() {
-        (Date.now().toString(36) + Math.random().toString(36).substr(1, 24)).toLowerCase()
-    }
-
     handleFormSubmit = event => {
-        this.setState({id: this.generateid()});
         event.preventDefault();
         let parking = [{
-            "id": this.state.id,
+
             "name": this.state.name,
-            "district": this.state.district,
+            "city": this.state.city,
+            "zip": this.state.zip,
             "address": this.state.address,
-            "description": this.state.description,
+            "description": this.state.description.toString(),
             "price": this.state.price,
             "nspots": this.state.nspots,
-            "is247": this.state.is247
+            "is247": this.state.is247,
+            "active": true
         }]
         ParkingDataService.createParking(parking)
             .then(() => this.props.history.push("/parking"));
@@ -107,7 +108,21 @@ class AddParking extends Component {
 
 
     renderSelected = (selected, options) => {
+        if (!options.length) {
+            return <span>No options available</span>;
+        }
 
+        if (!selected.length) {
+            return <span>Select options ({options.length} available)</span>;
+        }
+
+        if (selected.length === options.length) {
+            return <span>All options</span>;
+        }
+
+        if (selected.length > 2) {
+            return <span>Selected {selected.length} options</span>;
+        }
         return (
             <div style={styles.wrapper}>
                 {selected.map(value => (
@@ -138,13 +153,22 @@ class AddParking extends Component {
                                onChange={this.onChangeEvent}
                                required
                         />
+                        <br/>
+                        <br/>
+                        <input className="input"
+                               type="text"
+                               name='city'
+                               placeholder=" Enter the city"
+                               onChange={this.onChangeEvent}
+                               required
+                        />
 
                         <br/>
                         <br/>
                         <input className="input"
                                type="text"
-                               name='district'
-                               placeholder=" Enter the district"
+                               name='zip'
+                               placeholder=" Enter the zip"
                                onChange={this.onChangeEvent}
                                required
                         />
@@ -153,7 +177,7 @@ class AddParking extends Component {
 
                         <input className="input"
                                type="text"
-                               name='adress'
+                               name='address'
                                placeholder=" Enter the address"
                                onChange={this.onChangeEvent}
                                required
@@ -183,7 +207,7 @@ class AddParking extends Component {
                         />
 
                         <br/><br/>
-                        <label>Open 24/7</label>
+                        <label>Open 24/7 </label>
                         <input type="checkbox" name="is247"
 
                                defaultChecked={this.state.is247}
@@ -204,10 +228,10 @@ class AddParking extends Component {
 
                         <br/><br/>
                         <div>
-                            <button type="submit" className="button1" onClick={this.handleFormSubmit}>Create</button>
-                            <br/><br/>
+                            <button type="submit" className="btn btn-success" onClick={this.handleFormSubmit}>Create
+                            </button>
                             <Link to="/Parking">
-                                <button type="button" className="button2"
+                                <button type="button" className="btn btn-primary"
                                         onClick={() => this.props.history.push("/")}>Cancel
                                 </button>
                             </Link>

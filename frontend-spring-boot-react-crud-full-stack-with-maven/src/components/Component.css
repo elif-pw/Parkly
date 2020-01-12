@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300');
 @import url('https://fonts.googleapis.com/css?family=Arimo');
 
+
 .top-menu {
   background: rgba(255,255,255,.5);
   box-shadow: 3px 0 7px rgba(0,0,0,.3);
@@ -213,7 +214,7 @@ p {
 
 .newParkingForm{
     text-align: center;
-    margin:30px;
+    margin:35px;
     width: 400px;
     align-items: center;
     justify-content: center;
@@ -246,16 +247,6 @@ th, td {
   border: none;
   border-radius: 5px;
   box-shadow: 0 3px #999;
-}
-.button1{
-    background-color: #2054a0;
-}
-
-.button2{
-    background-color: #f4511e;
-}
-.button3{
-    background-color: #c4ff56;
 }
 
 

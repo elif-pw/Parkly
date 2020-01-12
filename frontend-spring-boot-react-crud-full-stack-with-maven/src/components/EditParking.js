@@ -43,6 +43,7 @@ class EditParking extends Component {
 
             id: this.props.match.params.id,
             name: '',
+            city:'',
             district:'',
             address: '',
             price: '',
@@ -65,15 +66,16 @@ class EditParking extends Component {
             .then(response =>
                 this.setState({
                     name: response.data.name,
-                    district: response.data.district,
+                    city:response.data.city,
+                    zip: response.data.zip,
                     address: response.data.address,
                     price: response.data.price,
-                    description: response.data.description,
+                  //  description: response.data.description,
                     nspots: response.data.nspots,
                     is247: response.data.is247
                 })
             );
-        console.log(this.state.name);
+
     }
 
     handleFormSubmit = event => {
@@ -81,9 +83,10 @@ class EditParking extends Component {
         let parking = {
             "id": this.state.id,
             "name": this.state.name,
-            "district":this.state.district,
+            "city":this.state.city,
+            "zip":this.state.zip,
             "address": this.state.address,
-            "description": this.state.description,
+            "description": this.state.description.toString(),
             "price": this.state.price,
             "nspots": this.state.nspots,
             "is247": this.state.is247
@@ -121,9 +124,24 @@ class EditParking extends Component {
 
 
     renderSelected = (selected, options) => {
+        if (!options.length) {
+            return <span>No options available</span>;
+        }
 
+        if (!selected.length) {
+            return <span>Select options ({options.length} available)</span>;
+        }
+
+        if (selected.length === options.length) {
+            return <span>All options</span>;
+        }
+
+        if (selected.length > 2) {
+            return <span>Selected {selected.length} options</span>;
+        }
         return (
             <div style={styles.wrapper}>
+                {console.log(selected)}
                 {selected.map(value => (
                     <Chip
                         key={value}
@@ -157,12 +175,24 @@ class EditParking extends Component {
                         />
                         <br/><br/>
 
-                        <label>District</label>
+                        <label>City</label>
                         <br/>
                         <input className="input"
                                type="text"
-                               name='district'
-                               value={this.state.district}
+                               name='city'
+                               value={this.state.city}
+                               onChange={this.onChangeEvent}
+                               required
+                        />
+                        <br/><br/>
+
+
+                        <label>ZIP</label>
+                        <br/>
+                        <input className="input"
+                               type="text"
+                               name='zip'
+                               value={this.state.zip}
                                onChange={this.onChangeEvent}
                                required
                         />
@@ -194,7 +224,7 @@ class EditParking extends Component {
 
                         <br/><br/>
 
-                        <label>Nmber of spots</label>
+                        <label>Number of spots</label>
                         <br/>
                         <input className="input"
                             type="number"
@@ -205,11 +235,8 @@ class EditParking extends Component {
                         />
                         <br/>
 
-                        <label>Description [soon]</label>
-                        <br/><br/>
 
-
-                        <label>Open 24/7</label>
+                        <label>Open 24/7  </label>
                         <input
                              type="checkbox" name="is247"
 
@@ -234,13 +261,13 @@ class EditParking extends Component {
 
 
                         <br/><br/>
-                        <button type="submit" className="button1" onClick={this.handleFormSubmit}>Update</button>
+                        <button type="submit" className="btn btn-success" onClick={this.handleFormSubmit}>Update</button>
 
-                        <button type="submit" className="button3"
+                        <button type="submit" className="btn btn-danger"
                                 onClick={this.handleFormDelete}>Delete</button>
 
                         <Link to="/Parking">
-                            <button type="button" className="button2"
+                            <button type="button" className="btn btn-primary"
                                     onClick={() => this.props.history.push("/parking")}>Cancel
                             </button>
                         </Link>

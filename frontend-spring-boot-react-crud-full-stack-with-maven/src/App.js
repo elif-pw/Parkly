@@ -6,31 +6,39 @@ import AddParking from "./components/AddParking";
 import LoginPage from "./components/LoginPage";
 import AdminPage from "./components/AdminPage";
 import EditParking from "./components/EditParking";
-
-
+import AuthenticatedRoute from "./components/AuthenticatedRoute";
+import Logout from "./components/Logout";
+// import MapPage from "./components/MapPage";
+import "bootstrap/dist/css/bootstrap.min.css";
+import AuthenticationService from "./components/AuthenticationService";
 
 class App extends Component {
+
     render() {
         return (
             <div className="App">
                 <div className="container">
-                <Router>
+                <Router >
                     <Switch>
                         <Route exact path="/login">
                             <LoginPage/>
                         </Route>
-                        <Route exact path="/admin">
+                        <AuthenticatedRoute exact path="/admin">
                             <AdminPage/>
-                        </Route>
-                        <Route exact path="/parking">
+                        </AuthenticatedRoute>
+                        <AuthenticatedRoute exact path="/parking">
                             <ParkingList/>
-                        </Route>
-                        <Route exact path="/newparking">
+                        </AuthenticatedRoute>
+                        <AuthenticatedRoute exact path="/newparking">
                             <AddParking/>
-                        </Route>
-                        <Route exact path="/editparking/:id">
+                        </AuthenticatedRoute>
+                        <AuthenticatedRoute exact path="/editparking/:id">
                             <EditParking/>
-                        </Route>
+                        </AuthenticatedRoute>
+                         <AuthenticatedRoute exact path="/map">
+                            {/*<MapPage/>*/}
+                        </AuthenticatedRoute>
+                        <AuthenticatedRoute path="/logout" exact component={Logout}/>
                     </Switch>
                 </Router>
             </div>
