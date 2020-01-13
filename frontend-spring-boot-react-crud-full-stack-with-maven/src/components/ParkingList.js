@@ -1,9 +1,6 @@
 import React, {Component} from "react";
 import ParkingDataService from "../service/ParkingDataService";
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link,
     withRouter
 } from "react-router-dom";
@@ -78,7 +75,7 @@ class ParkingList extends Component {
                             </tbody>
                         </table>
                         <Link to="/newparking">
-                            <button class="btn btn-primary">Create new Parking</button>
+                            <button className="btn btn-primary">Create new Parking</button>
                         </Link>
                     </fieldset>
                 </div>

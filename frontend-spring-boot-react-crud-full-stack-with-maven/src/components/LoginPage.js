@@ -1,15 +1,7 @@
 import React from "react";
 import {withRouter} from 'react-router-dom';
-import ParkingDataService from "../service/ParkingDataService";
 import {Button, FormGroup, FormControl, FormLabel} from "react-bootstrap";
-import Bootstrap from "react-bootstrap";
 import logo from "../images/LogoDay.jpg";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
 import AuthenticationService from "./AuthenticationService";
 import Alert from "react-bootstrap/Alert";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -22,7 +14,8 @@ class LoginPage extends React.Component {
             password: '',
             isValid: false,
             hasLoginFailed: false,
-            showSuccessMessage: false
+            showSuccessMessage: false,
+            message: ''
         }
         this.onChangeEvent = this.onChangeEvent.bind(this);
         this.validateForm = this.validateForm.bind(this);
@@ -63,10 +56,10 @@ class LoginPage extends React.Component {
 
 
                 <form className="loginGroup" onSubmit={this.handleSubmit}>
-                     {this.state.hasLoginFailed &&
-                <Alert variant="danger" show={true}>
-                    Incorrect Username or Password
-                </Alert>}
+                    {this.state.hasLoginFailed &&
+                    <Alert variant="danger" show={true}>
+                        Incorrect Username or Password
+                    </Alert>}
                     <FormGroup className="field" controlId="username">
                         <FormLabel className="label">Username</FormLabel>
                         <FormControl
