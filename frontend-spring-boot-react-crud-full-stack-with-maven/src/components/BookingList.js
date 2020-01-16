@@ -58,8 +58,8 @@ class BookingList extends Component {
                                     booking =>
                                         <tr key={booking.id}>
                                             <td>{booking.id}</td>
-                                            <td>{booking.parkingId.id}</td>
-                                            <td>{booking.parkingSpotId.id}</td>
+                                            <td>{booking.parkingId}</td>
+                                            <td>{booking.parkingSpotId}</td>
                                             <td>{booking.userId}</td>
                                             <td>{booking.bookDate}</td>
                                             <td>{booking.paidAmount}</td>
