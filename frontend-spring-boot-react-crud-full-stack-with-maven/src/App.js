@@ -11,41 +11,51 @@ import Logout from "./components/Logout";
 // import MapPage from "./components/MapPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BookingList from "./components/BookingList";
+import appReducer from "./redux/reducers";
+
+import {Provider} from "react-redux";
+import {createStore} from "redux";
+import {composeWithDevTools} from "redux-devtools-extension";
+
+const store = createStore(appReducer, {},
+    composeWithDevTools());
 
 class App extends Component {
 
     render() {
         return (
-            <div className="App">
-                <div className="container">
-                    <Router>
-                        <Switch>
-                            <Route exact path="/login">
-                                <LoginPage/>
-                            </Route>
-                            <AuthenticatedRoute exact path="/admin">
-                                <AdminPage/>
-                            </AuthenticatedRoute>
-                            <AuthenticatedRoute exact path="/parking">
-                                <ParkingList/>
-                            </AuthenticatedRoute>
-                            <AuthenticatedRoute exact path="/booking">
-                                <BookingList/>
-                            </AuthenticatedRoute>
-                            <AuthenticatedRoute exact path="/newparking">
-                                <AddParking/>
-                            </AuthenticatedRoute>
-                            <AuthenticatedRoute exact path="/editparking/:id">
-                                <EditParking/>
-                            </AuthenticatedRoute>
-                            <AuthenticatedRoute exact path="/map">
-                                {/*<MapPage/>*/}
-                            </AuthenticatedRoute>
-                            <AuthenticatedRoute path="/logout" exact component={Logout}/>
-                        </Switch>
-                    </Router>
+            <Provider store={store}>
+                <div className="App">
+                    <div className="container">
+                        <Router>
+                            <Switch>
+                                <Route exact path="/login">
+                                    <LoginPage/>
+                                </Route>
+                                <AuthenticatedRoute exact path="/admin">
+                                    <AdminPage/>
+                                </AuthenticatedRoute>
+                                <AuthenticatedRoute exact path="/parking">
+                                    <ParkingList/>
+                                </AuthenticatedRoute>
+                                <AuthenticatedRoute exact path="/booking">
+                                    <BookingList/>
+                                </AuthenticatedRoute>
+                                <AuthenticatedRoute exact path="/newparking">
+                                    <AddParking/>
+                                </AuthenticatedRoute>
+                                <AuthenticatedRoute exact path="/editparking/:id">
+                                    <EditParking/>
+                                </AuthenticatedRoute>
+                                <AuthenticatedRoute exact path="/map">
+                                    {/*<MapPage/>*/}
+                                </AuthenticatedRoute>
+                                <AuthenticatedRoute path="/logout" exact component={Logout}/>
+                            </Switch>
+                        </Router>
+                    </div>
                 </div>
-            </div>
+            </Provider>
         );
     }
 }

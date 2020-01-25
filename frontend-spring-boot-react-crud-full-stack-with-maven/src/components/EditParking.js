@@ -13,14 +13,16 @@ import Header from "./Header.js"
 import Footer from "./Footer.js"
 import MultiSelect from "@khanacademy/react-multi-select";
 import Chip from '@material-ui/core/Chip';
+import {parkingDeleted, parkingFetched, parkingUpdated} from "../redux/actions";
+import {connect} from "react-redux";
 
 const options = [
-    { label: "Indoors Parking", value: "Indoors Parking" },
-    { label: "Outdoors Parking", value: "Outdoors Parking" },
-    { label: "Parking for disabled", value: "Parking for disabled" },
-    { label: "Parking for pregnant women", value: "Parking for pregnant women" },
-    { label: "Parking for electric cars", value: "Parking for electric cars" },
-    { label: "Parking for electric bikes", value: "Parking for electric bikes" }
+    {label: "Indoors Parking", value: "Indoors Parking"},
+    {label: "Outdoors Parking", value: "Outdoors Parking"},
+    {label: "Parking for disabled", value: "Parking for disabled"},
+    {label: "Parking for pregnant women", value: "Parking for pregnant women"},
+    {label: "Parking for electric cars", value: "Parking for electric cars"},
+    {label: "Parking for electric bikes", value: "Parking for electric bikes"}
 ];
 const styles = {
     chip: {
@@ -36,6 +38,7 @@ const styles = {
 
     },
 };
+
 class EditParking extends Component {
     constructor(props) {
         super(props);
@@ -43,8 +46,8 @@ class EditParking extends Component {
 
             id: this.props.match.params.id,
             name: '',
-            city:'',
-            district:'',
+            city: '',
+            district: '',
             address: '',
             price: '',
             description: [],
@@ -56,9 +59,9 @@ class EditParking extends Component {
         this.onChangeEvent = this.onChangeEvent.bind(this);
         this.onActivityChanged = this.onActivityChanged.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.handleSelectedChanged=this.handleSelectedChanged.bind(this);
-        this.handleUnselectItem=this.handleUnselectItem.bind(this);
-        this.renderSelected=this.renderSelected.bind(this);
+        this.handleSelectedChanged = this.handleSelectedChanged.bind(this);
+        this.handleUnselectItem = this.handleUnselectItem.bind(this);
+        this.renderSelected = this.renderSelected.bind(this);
     }
 
     componentDidMount() {
@@ -66,15 +69,27 @@ class EditParking extends Component {
             .then(response =>
                 this.setState({
                     name: response.data.name,
-                    city:response.data.city,
+                    city: response.data.city,
                     zip: response.data.zip,
                     address: response.data.address,
                     price: response.data.price,
-                  //  description: response.data.description,
+                    //  description: response.data.description,
                     nspots: response.data.nspots,
                     is247: response.data.is247
                 })
             );
+        // this.props.dispatchFetch(this.props.match.params.id);
+        // const {parking}=this.props;
+        // this.setState({
+        //              name: parking.name,
+        //              city: parking.city,
+        //              zip: parking.zip,
+        //              address: parking.address,
+        //              price: parking.price,
+        //              //  description: response.data.description,
+        //              nspots: parking.nspots,
+        //              is247: parking.is247
+        //          })
 
     }
 
@@ -83,8 +98,8 @@ class EditParking extends Component {
         let parking = {
             "id": this.state.id,
             "name": this.state.name,
-            "city":this.state.city,
-            "zip":this.state.zip,
+            "city": this.state.city,
+            "zip": this.state.zip,
             "address": this.state.address,
             "description": this.state.description.toString(),
             "price": this.state.price,
@@ -92,13 +107,23 @@ class EditParking extends Component {
             "is247": this.state.is247
         }
         ParkingDataService.updateParking(this.state.id, parking)
-            .then(response=>console.log(response))
-            .then(() => this.props.history.push("/parking"));
+            // .then(response=>console.log(response))
+            .then(response => {
+                if (response.status === 200) {
+                    this.props.dispatchUpdate(parking);
+                    this.props.history.push("/parking");
+                }
+            })
 
     };
     handleFormDelete = event => {
         event.preventDefault();
         ParkingDataService.deleteParking(this.state.id)
+            .then(response => {
+                if (response.status === 200) {
+                    this.props.dispatchDelete(this.state.id);
+                }
+            })
             .then(() => this.props.history.push("/parking"));
     };
 
@@ -113,7 +138,7 @@ class EditParking extends Component {
         });
     }
     handleSelectedChanged = description => {
-        this.setState({ description });
+        this.setState({description});
     };
     handleUnselectItem = (removedVal) => () => (
         this.setState({
@@ -157,7 +182,9 @@ class EditParking extends Component {
 
 
     render() {
-        const {description}=this.state;
+        const {description} = this.state;
+        const {parking} = this.props;
+        console.log(this.props)
         return (
             <div>
                 <Header/>
@@ -167,13 +194,13 @@ class EditParking extends Component {
                         <label>Name</label>
                         <br/>
                         <input className="input"
-                            type="text"
-                            name='name'
-                            value={this.state.name}
-                            onChange={this.onChangeEvent}
-                            required
+                               type="text"
+                               name='name'
+                               value={this.state.name}
+                               onChange={this.onChangeEvent}
+                               required
                         />
-                        <br/><br/>
+                        <br/>
 
                         <label>City</label>
                         <br/>
@@ -184,7 +211,7 @@ class EditParking extends Component {
                                onChange={this.onChangeEvent}
                                required
                         />
-                        <br/><br/>
+                        <br/>
 
 
                         <label>ZIP</label>
@@ -197,7 +224,7 @@ class EditParking extends Component {
                                required
                         />
 
-                        <br/><br/>
+                        <br/>
 
                         <label>Address</label>
                         <br/>
@@ -211,38 +238,38 @@ class EditParking extends Component {
 
 
                         <br/>
-                        <br/>
+
                         <label>Price</label>
                         <br/>
                         <input className="input"
-                            type="number"
-                            name='price'
-                            value={this.state.price}
-                            onChange={this.onChangeEvent}
-                            required
+                               type="number"
+                               name='price'
+                               value={this.state.price}
+                               onChange={this.onChangeEvent}
+                               required
                         />
 
-                        <br/><br/>
+                        <br/>
 
                         <label>Number of spots</label>
                         <br/>
                         <input className="input"
-                            type="number"
-                            name='nspots'
-                            value={this.state.nspots}
-                            onChange={this.onChangeEvent}
-                            required
+                               type="number"
+                               name='nspots'
+                               value={this.state.nspots}
+                               onChange={this.onChangeEvent}
+                               required
                         />
                         <br/>
 
 
-                        <label>Open 24/7  </label>
+                        <label>Open 24/7 </label>
                         <input
-                             type="checkbox" name="is247"
+                            type="checkbox" name="is247"
 
-                               defaultChecked={this.state.is247}
-                               onChange={this.onActivityChanged}/>
-                        <br/><br/>
+                            defaultChecked={this.state.is247}
+                            onChange={this.onActivityChanged}/>
+                        <br/>
 
 
                         <label>Choose Options</label>
@@ -257,14 +284,13 @@ class EditParking extends Component {
                         />
 
 
-
-
-
                         <br/><br/>
-                        <button type="submit" className="btn btn-success" onClick={this.handleFormSubmit}>Update</button>
+                        <button type="submit" className="btn btn-success" onClick={this.handleFormSubmit}>Update
+                        </button>
 
                         <button type="submit" className="btn btn-danger"
-                                onClick={this.handleFormDelete}>Delete</button>
+                                onClick={this.handleFormDelete}>Delete
+                        </button>
 
                         <Link to="/Parking">
                             <button type="button" className="btn btn-primary"
@@ -281,4 +307,17 @@ class EditParking extends Component {
 
 }
 
-export default withRouter(EditParking)
+const mapStateToProps = (state) => {
+    return {
+        parkings: state.parkings
+    };
+};
+const mapDispatchToProps = (dispatch) => ({
+    dispatchDelete: (id) => dispatch(parkingDeleted(id)),
+    dispatchUpdate: parking => dispatch(parkingUpdated(parking)),
+    dispatchFetch: parking => dispatch(parkingFetched(parking))
+});
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(EditParking));

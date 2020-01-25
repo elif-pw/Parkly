@@ -8,31 +8,36 @@ import './Component.css'
 import Header from "./Header";
 import Footer from "./Footer";
 
+import {connect} from 'react-redux';
+import {parkingsLoaded} from "../redux/actions";
+
 class ParkingList extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            parkings: [],
             message: null
         }
         this.refresh = this.refresh.bind(this)
     }
 
     componentDidMount() {
-        this.refresh();
+        if (!this.props.isLoaded) {
+            this.refresh();
+        }
     }
 
     refresh() {
         ParkingDataService.retrieveAllParkings()
-            .then(
-                response => {
-                    this.setState({parkings: response.data})
+            .then(response => response.data)
+            .then(parkings => {
+                    this.props.parkingsLoaded(parkings);
                 }
             )
     }
 
 
     render() {
+        const {parkings} = this.props;
         return (
             <div>
                 <Header/>
@@ -44,6 +49,8 @@ class ParkingList extends Component {
                             <tr>
                                 <th>Id</th>
                                 <th>Name</th>
+                                <th>City</th>
+                                <th>ZIP</th>
                                 <th>Address</th>
                                 <th>Price</th>
                                 <th>Description</th>
@@ -53,11 +60,13 @@ class ParkingList extends Component {
                             </thead>
                             <tbody>
                             {
-                                this.state.parkings.map(
+                                parkings && parkings.map(
                                     parking =>
                                         <tr key={parking.id}>
                                             <td>{parking.id}</td>
                                             <td>{parking.name}</td>
+                                            <td>{parking.city}</td>
+                                            <td>{parking.zip}</td>
                                             <td>{parking.address}</td>
                                             <td>{parking.price}</td>
                                             <td>{parking.description}</td>
@@ -86,4 +95,16 @@ class ParkingList extends Component {
 }
 
 
-export default withRouter(ParkingList)
+const mapStateToProps = (state) => {
+    return {
+        parkings: state.parkings,
+        isLoaded: state.isLoaded,
+    };
+};
+const mapDispatchToProps = (dispatch) => ({
+    parkingsLoaded: parkings => dispatch(parkingsLoaded(parkings))
+});
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)((ParkingList));

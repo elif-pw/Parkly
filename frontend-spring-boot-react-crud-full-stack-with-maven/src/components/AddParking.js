@@ -12,6 +12,8 @@ import Header from "./Header.js"
 import Footer from "./Footer.js"
 import MultiSelect from "@khanacademy/react-multi-select";
 import Chip from '@material-ui/core/Chip';
+import {parkingAdded, parkingsLoaded} from "../redux/actions";
+import {connect} from "react-redux";
 
 
 const options = [
@@ -68,7 +70,7 @@ class AddParking extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-        let parking = [{
+        const parking = {
 
             "name": this.state.name,
             "city": this.state.city,
@@ -79,10 +81,14 @@ class AddParking extends Component {
             "nspots": this.state.nspots,
             "is247": this.state.is247,
             "active": true
-        }]
-        ParkingDataService.createParking(parking)
-            .then(() => this.props.history.push("/parking"));
-
+        }
+        ParkingDataService.createParking([parking])
+            .then(response => {
+                if (response.status === 200) {
+                    this.props.dispatchParkingAdd(parking);
+                    this.props.history.push("/parking");
+                }
+            })
     };
 
     onChangeEvent(event) {
@@ -244,4 +250,10 @@ class AddParking extends Component {
     }
 }
 
-export default withRouter(AddParking)
+const mapDispatchToProps = (dispatch) => ({
+    dispatchParkingAdd: parking => dispatch(parkingAdded(parking))
+});
+export default connect(
+    null,
+    mapDispatchToProps
+)(withRouter(AddParking));

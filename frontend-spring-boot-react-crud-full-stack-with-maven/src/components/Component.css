@@ -22,7 +22,6 @@
 }
 
 body {
-
     padding-bottom: 40px;
 }
 
@@ -84,7 +83,7 @@ body {
     opacity: 1;
 }
 
-@media (max-width: 660px) {
+@media (max-width: 600px) {
     .menu-main {
         float: none;
         padding-top: 20px;
@@ -113,7 +112,7 @@ body {
 
 .genInfo li {
     height: 80px;
-    width: 14vw;
+    width: 12vw;
     background: rgba(255, 255, 255, .5);
     box-shadow: 1px 0 3px rgba(0, 0, 0, .3);
     padding: 10px;
@@ -121,7 +120,7 @@ body {
     border-radius: 7px;
     text-decoration: none;
     display: inline-block;
-    margin-right: 50px;
+    margin-right: 30px;
     margin-bottom: 30px;
     line-height: 51px;
     font-size: 12px;
@@ -145,7 +144,7 @@ body {
     margin-left: 10px;
     margin-top: 20px;
     margin-bottom: 30px;
-    margin: 20px 0px 40px 10;
+    margin: 20px 0px 40px 10px;
 }
 
 .animdiv:first-of-type {
@@ -223,8 +222,8 @@ p {
     text-align: left;
     align-items: left;
     justify-content: left;
-
-    top: 0;
+    width:100%;
+    margin: 20px;
 }
 
 .Header ul {
@@ -279,7 +278,7 @@ p {
 .parkingList {
     text-align: center;
     margin: 30px;
-    width: 700px;
+    width: 100%;
     align-items: center;
     justify-content: center;
 }
@@ -291,7 +290,6 @@ th, td {
 
 .newParkingForm button {
 
-    display: inline-block;
     display: inline-block;
     padding: 10px 15px;
     font-size: 14px;
