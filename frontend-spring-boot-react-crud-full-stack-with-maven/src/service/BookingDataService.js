@@ -1,8 +1,8 @@
 import axios from 'axios'
 import AuthenticationService from "../components/AuthenticationService";
 
-const API_URL = 'http://localhost:8080'
-const DEPL_URL = 'http://parklybe.us-east-1.elasticbeanstalk.com'
+// const API_URL = 'http://localhost:8080'
+const API_URL = 'http://parklybe.us-east-1.elasticbeanstalk.com'
 const config = {
     headers: {
         "Authorization": "Bearer " + sessionStorage.token
