@@ -64,34 +64,43 @@ class EditParking extends Component {
         this.renderSelected = this.renderSelected.bind(this);
     }
 
+    // componentDidMount() {
+    //     // ParkingDataService.retrieveParking(this.state.id)
+    //     //     .then(response =>
+    //     //         this.setState({
+    //     //             name: response.data.name,
+    //     //             city: response.data.city,
+    //     //             zip: response.data.zip,
+    //     //             address: response.data.address,
+    //     //             price: response.data.price,
+    //     //             //  description: response.data.description,
+    //     //             nspots: response.data.nspots,
+    //     //             is247: response.data.is247
+    //     //         })
+    //     //     );
+    // }
     componentDidMount() {
-        ParkingDataService.retrieveParking(this.state.id)
-            .then(response =>
-                this.setState({
-                    name: response.data.name,
-                    city: response.data.city,
-                    zip: response.data.zip,
-                    address: response.data.address,
-                    price: response.data.price,
-                    //  description: response.data.description,
-                    nspots: response.data.nspots,
-                    is247: response.data.is247
-                })
-            );
-        // this.props.dispatchFetch(this.props.match.params.id);
-        // const {parking}=this.props;
-        // this.setState({
-        //              name: parking.name,
-        //              city: parking.city,
-        //              zip: parking.zip,
-        //              address: parking.address,
-        //              price: parking.price,
-        //              //  description: response.data.description,
-        //              nspots: parking.nspots,
-        //              is247: parking.is247
-        //          })
-
+        this.props.dispatchFetch(this.props.match.params.id);
     }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.parking !== prevProps.parking) {
+            const {parking} = this.props;
+            if (parking) {
+                this.setState({
+                    name: parking.name,
+                    city: parking.city,
+                    zip: parking.zip,
+                    address: parking.address,
+                    price: parking.price,
+                    //  description: response.data.description,
+                    nspots: parking.nspots,
+                    is247: parking.is247
+                })
+            }
+        }
+    }
+
 
     handleFormSubmit = event => {
         event.preventDefault();
@@ -183,8 +192,6 @@ class EditParking extends Component {
 
     render() {
         const {description} = this.state;
-        const {parking} = this.props;
-        console.log(this.props)
         return (
             <div>
                 <Header/>
@@ -309,13 +316,13 @@ class EditParking extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        parkings: state.parkings
+        parking: state.parking
     };
 };
 const mapDispatchToProps = (dispatch) => ({
     dispatchDelete: (id) => dispatch(parkingDeleted(id)),
     dispatchUpdate: parking => dispatch(parkingUpdated(parking)),
-    dispatchFetch: parking => dispatch(parkingFetched(parking))
+    dispatchFetch: id => dispatch(parkingFetched(id))
 });
 export default connect(
     mapStateToProps,
