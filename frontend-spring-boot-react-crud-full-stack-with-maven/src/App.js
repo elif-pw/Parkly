@@ -14,11 +14,13 @@ import BookingList from "./components/BookingList";
 import appReducer from "./redux/reducers";
 
 import {Provider} from "react-redux";
-import {createStore} from "redux";
+import {applyMiddleware, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
+import logger from "redux-logger";
+import thunk from "redux-thunk";
 
 const store = createStore(appReducer, {},
-    composeWithDevTools());
+    composeWithDevTools(applyMiddleware(logger, thunk)));
 
 class App extends Component {
 

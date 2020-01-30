@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
-import ParkingDataService from "../service/ParkingDataService";
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
 } from "react-router-dom";
 import './Component.css'
@@ -14,7 +10,7 @@ import MultiSelect from "@khanacademy/react-multi-select";
 import Chip from '@material-ui/core/Chip';
 import {parkingAdded, parkingsLoaded} from "../redux/actions";
 import {connect} from "react-redux";
-
+import {addNewParkingwithId} from "../redux/thunk-functions";
 
 const options = [
     {label: "Indoors Parking", value: "Indoors Parking"},
@@ -82,13 +78,16 @@ class AddParking extends Component {
             "is247": this.state.is247,
             "active": true
         }
-        ParkingDataService.createParking([parking])
-            .then(response => {
-                if (response.status === 200) {
-                    this.props.dispatchParkingAdd(parking);
-                    this.props.history.push("/parking");
-                }
-            })
+        // ParkingDataService.createParking([parking])
+        //     .then(response => {
+        //         if (response.status === 200) {
+        //             this.props.dispatchParkingAdd(parking);
+        //             this.props.history.push("/parking");
+        //         }
+        //     })
+        this.props.addNewParkingwithId(parking);
+        this.props.history.push("/parking");
+
     };
 
     onChangeEvent(event) {
@@ -251,7 +250,7 @@ class AddParking extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    dispatchParkingAdd: parking => dispatch(parkingAdded(parking))
+    addNewParkingwithId: (parking) => dispatch(addNewParkingwithId(parking))
 });
 export default connect(
     null,

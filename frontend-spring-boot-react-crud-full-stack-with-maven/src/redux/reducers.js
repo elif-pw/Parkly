@@ -1,12 +1,14 @@
 import {
     PARKING_LOADED, PARKING_ADDED,
-    PARKING_UPDATED, PARKING_DELETED, PARKING_FETCHED
+    PARKING_UPDATED, PARKING_DELETED,
+    PARKING_FETCHED, PARKING_ADDED_SUCCESS
 } from "./constants";
 
 export const initialState = {
     parkings: [],
     isLoaded: false,
-    parking: undefined
+    parking: undefined,
+    parking_id: undefined
 
 };
 
@@ -19,9 +21,27 @@ const appReducer = (state = initialState, action) => {
                 };
             }
             case PARKING_ADDED: {
+
                 const newParking = action.payload.parking;
-                const newParkings = [...state.parkings, newParking];
+
+                const parking = {
+                    "id": state.parking_id,
+                    "name": newParking.name,
+                    "city": newParking.city,
+                    "zip": newParking.zip,
+                    "address": newParking.address,
+                    "description": newParking.description,
+                    "price": newParking.price,
+                    "nspots": newParking.nspots,
+                    "is247": newParking.is247,
+                    "active": true
+                }
+                const newParkings = [...state.parkings, parking];
                 return {...state, parkings: newParkings};
+            }
+            case PARKING_ADDED_SUCCESS: {
+                const id = action.payload.id;
+                return {...state, parking_id: id};
             }
             case PARKING_DELETED: {
                 const {id} = action.payload;

@@ -2,7 +2,8 @@ import {
     PARKING_LOADED, PARKING_ADDED,
     PARKING_DELETED,
     PARKING_UPDATED,
-    PARKING_FETCHED
+    PARKING_FETCHED,
+    PARKING_ADDED_SUCCESS
 } from "./constants";
 
 export const parkingsLoaded = parkings => {
@@ -15,7 +16,6 @@ export const parkingsLoaded = parkings => {
 };
 
 export const parkingAdded = (parking) => {
-    console.log(parking);
     return {
         type: PARKING_ADDED,
         payload: {
@@ -24,9 +24,16 @@ export const parkingAdded = (parking) => {
     };
 };
 
+export const parkingidfetch = (id) => {
+    return {
+        type: PARKING_ADDED_SUCCESS,
+        payload: {
+            id
+        }
+    };
+};
 
 export const parkingDeleted = (id) => {
-    console.log(id);
     return {
         type: PARKING_DELETED,
         payload: {
