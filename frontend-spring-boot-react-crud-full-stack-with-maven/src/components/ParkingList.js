@@ -86,16 +86,17 @@ class ParkingList extends Component {
                                 )
                             }
 
+
+
+                            </tbody>
+
+                        </table>
                             <div className='sweet-loading'>
                                 <BeatLoader
                                     color={'#2f5fbc'}
                                     loading={!this.props.isLoaded}
                                 />
                             </div>
-
-
-                            </tbody>
-                        </table>
                         <Link to="/newparking">
                             <button className="btn btn-primary">Create new Parking</button>
                         </Link>

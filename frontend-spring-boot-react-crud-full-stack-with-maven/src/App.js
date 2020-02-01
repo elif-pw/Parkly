@@ -6,6 +6,11 @@ import AddParking from "./components/AddParking";
 import LoginPage from "./components/LoginPage";
 import AdminPage from "./components/AdminPage";
 import EditParking from "./components/EditParking";
+import Buisness from "./components/Buisness";
+import Settings from "./components/Settings";
+import Privacy from "./components/Privacy"
+import Advertising from "./components/Advertising";
+import About from "./components/About";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import Logout from "./components/Logout";
 // import MapPage from "./components/MapPage";
@@ -28,7 +33,7 @@ class App extends Component {
         return (
             <Provider store={store}>
                 <div className="App">
-                    <div className="container">
+                    <div className="cont">
                         <Router>
                             <Switch>
                                 <Route exact path="/login">
@@ -42,6 +47,21 @@ class App extends Component {
                                 </AuthenticatedRoute>
                                 <AuthenticatedRoute exact path="/booking">
                                     <BookingList/>
+                                </AuthenticatedRoute>
+                                <AuthenticatedRoute exact path="/buisness">
+                                     <Buisness />
+                                </AuthenticatedRoute>
+                                <AuthenticatedRoute exact path="/privacy">
+                                     <Privacy />
+                                </AuthenticatedRoute>
+                                <AuthenticatedRoute exact path="/settings">
+                                     <Settings />
+                                </AuthenticatedRoute>
+                                <AuthenticatedRoute exact path="/advertising">
+                                     <Advertising />
+                                </AuthenticatedRoute>
+                                <AuthenticatedRoute exact path="/about">
+                                     <About />
                                 </AuthenticatedRoute>
                                 <AuthenticatedRoute exact path="/newparking">
                                     <AddParking/>

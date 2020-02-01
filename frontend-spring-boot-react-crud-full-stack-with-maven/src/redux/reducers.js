@@ -45,7 +45,7 @@ const appReducer = (state = initialState, action) => {
             }
             case PARKING_DELETED: {
                 const {id} = action.payload;
-                const index = state.parkings.findIndex(item => item.id == id);
+                const index = state.parkings.findIndex(item => item.id === id);
                 if (index > -1) {
                     let newParkings = [...state.parkings];
                     newParkings.splice(index, 1);
@@ -57,7 +57,7 @@ const appReducer = (state = initialState, action) => {
             }
             case PARKING_UPDATED: {
                 const list = state.parkings;
-                const index = state.parkings.findIndex(i => i.id == action.payload.parking.id);
+                const index = state.parkings.findIndex(i => i.id === action.payload.parking.id);
                 if (index > -1) {
                     list.splice(index, 1, action.payload.parking)
                     return {...state, parkings: list};
@@ -67,7 +67,7 @@ const appReducer = (state = initialState, action) => {
             }
             case PARKING_FETCHED: {
                 const {id} = action.payload;
-                const theparking = state.parkings.find(i => i.id == id);
+                const theparking = state.parkings.find(i => i.id === id);
                 if (theparking) {
                     return {...state, parking: theparking}
                 } else {

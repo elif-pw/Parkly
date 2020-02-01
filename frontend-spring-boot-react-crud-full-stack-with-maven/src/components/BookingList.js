@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import BookingDataService from "../service/BookingDataService";
 import {
-    Link,
     withRouter
 } from "react-router-dom";
 import './Component.css'

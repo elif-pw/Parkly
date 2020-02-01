@@ -3,9 +3,6 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import ParkingDataService from "../service/ParkingDataService";
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
 } from "react-router-dom";
 import './Component.css'
@@ -107,8 +104,8 @@ class EditParking extends Component {
         console.log(this.state)
         if (this.state.name === '' ||
             this.state.city === '' || this.state.zip === ''
-            || this.state.address === '' || this.state.price == 0
-            || this.state.nspots == 0)
+            || this.state.address === '' || this.state.price === 0
+            || this.state.nspots === 0)
             return false;
         return true;
     }

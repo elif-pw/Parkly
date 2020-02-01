@@ -8,7 +8,6 @@ import Header from "./Header.js"
 import Footer from "./Footer.js"
 import MultiSelect from "@khanacademy/react-multi-select";
 import Chip from '@material-ui/core/Chip';
-import {parkingAdded, parkingsLoaded} from "../redux/actions";
 import {connect} from "react-redux";
 import {addNewParkingwithId} from "../redux/thunk-functions";
 
@@ -69,8 +68,8 @@ class AddParking extends Component {
     handleValidation() {
         if (this.state.name === '' ||
             this.state.city === '' || this.state.zip === ''
-            || this.state.address === '' || this.state.price == 0
-            || this.state.nspots == 0)
+            || this.state.address === '' || this.state.price === 0
+            || this.state.nspots === 0)
             return false;
         return true;
     }
