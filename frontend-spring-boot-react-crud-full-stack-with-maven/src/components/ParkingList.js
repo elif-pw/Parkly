@@ -11,11 +11,14 @@ import Footer from "./Footer";
 import {connect} from 'react-redux';
 import {parkingsLoaded} from "../redux/actions";
 
+import { BeatLoader} from 'react-spinners';
+
 class ParkingList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: null
+            message: null,
+            loading:true
         }
         this.refresh = this.refresh.bind(this)
     }
@@ -33,6 +36,7 @@ class ParkingList extends Component {
                     this.props.parkingsLoaded(parkings);
                 }
             )
+
     }
 
 
@@ -81,6 +85,15 @@ class ParkingList extends Component {
                                         </tr>
                                 )
                             }
+
+                            <div className='sweet-loading'>
+                                <BeatLoader
+                                    color={'#2f5fbc'}
+                                    loading={!this.props.isLoaded}
+                                />
+                            </div>
+
+
                             </tbody>
                         </table>
                         <Link to="/newparking">

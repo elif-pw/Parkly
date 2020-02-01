@@ -52,7 +52,8 @@ class EditParking extends Component {
             price: '',
             description: [],
             nspots: '',
-            is247: ''
+            is247: '',
+            errormessage: '',
 
 
         }
@@ -62,6 +63,7 @@ class EditParking extends Component {
         this.handleSelectedChanged = this.handleSelectedChanged.bind(this);
         this.handleUnselectItem = this.handleUnselectItem.bind(this);
         this.renderSelected = this.renderSelected.bind(this);
+        this.handleValidation = this.handleValidation.bind(this);
     }
 
     // componentDidMount() {
@@ -101,6 +103,16 @@ class EditParking extends Component {
         }
     }
 
+    handleValidation() {
+        console.log(this.state)
+        if (this.state.name === '' ||
+            this.state.city === '' || this.state.zip === ''
+            || this.state.address === '' || this.state.price == 0
+            || this.state.nspots == 0)
+            return false;
+        return true;
+    }
+
 
     handleFormSubmit = event => {
         event.preventDefault();
@@ -115,14 +127,16 @@ class EditParking extends Component {
             "nspots": this.state.nspots,
             "is247": this.state.is247
         }
-        ParkingDataService.updateParking(this.state.id, parking)
-            // .then(response=>console.log(response))
-            .then(response => {
-                if (response.status === 200) {
-                    this.props.dispatchUpdate(parking);
-                    this.props.history.push("/parking");
-                }
-            })
+        this.handleValidation() ?
+            ParkingDataService.updateParking(this.state.id, parking)
+                .then(response => {
+                    if (response.status === 200) {
+                        this.props.dispatchUpdate(parking);
+                        this.props.history.push("/parking");
+                    }
+                })
+            :
+            this.setState({errormessage: "All fields should be filled! Number of spots or the price cannot be 0!"})
 
     };
     handleFormDelete = event => {
@@ -131,9 +145,13 @@ class EditParking extends Component {
             .then(response => {
                 if (response.status === 200) {
                     this.props.dispatchDelete(this.state.id);
+                    this.props.history.push("/parking");
+
                 }
             })
-            .then(() => this.props.history.push("/parking"));
+            .catch(() => {
+                this.setState({errormessage: "This Parking may contain bookings for future dates. Delete option is not available."})
+            })
     };
 
 
@@ -195,6 +213,13 @@ class EditParking extends Component {
         return (
             <div>
                 <Header/>
+                {this.state.errormessage &&
+                <div className="alert alert-danger">
+                    <strong>Error!</strong> {this.state.errormessage}
+                </div>
+                }
+
+
                 <form className="newParkingForm" onSubmit={this.handleFormSubmit}>
                     <fieldset>
                         <h3 className="formtext">Parking Details</h3>

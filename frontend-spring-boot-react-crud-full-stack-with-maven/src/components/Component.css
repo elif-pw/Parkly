@@ -30,6 +30,10 @@ body {
     margin: 20px;
 }
 
+.sweet-loading{
+
+}
+
 .top-menu:after {
     content: "";
     display: table;
