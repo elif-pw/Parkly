@@ -4,14 +4,20 @@ import axios from 'axios'
 const API_URL = 'http://parklybe2.us-east-1.elasticbeanstalk.com'
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
+const config = {
+    headers: {
+        crossDomain: true,
+        'Access-Control-Allow-Origin': '*'
+    }
+}
 
 class AuthenticationService {
 
     executeJwtAuthenticationService(username, password) {
-        return axios.post(`${API_URL}/admin`, {
+        return axios.post(`${API_URL}/login`, {
             username,
             password
-        })
+        }, config)
     }
 
     registerSuccessfulLoginForJwt(username, token) {
