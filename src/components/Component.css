@@ -367,6 +367,7 @@ th, td {
     width: 320px;
     padding: 20px;
     padding-right: 30px;
+    padding-left: 10px;
     border: 1px solid #555;
     border-radius: 5px;
 }
