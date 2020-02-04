@@ -366,6 +366,7 @@ th, td {
     font-family: 'Roboto';
     width: 320px;
     padding: 20px;
+    padding-right: 30px;
     border: 1px solid #555;
     border-radius: 5px;
 }
