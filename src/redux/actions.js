@@ -1,10 +1,21 @@
 import {
+    BOOKING_LOADED,
     PARKING_LOADED, PARKING_ADDED,
     PARKING_DELETED,
     PARKING_UPDATED,
     PARKING_FETCHED,
     PARKING_ADDED_SUCCESS
 } from "./constants";
+
+
+export const bookingsLoaded = bookings => {
+    return {
+        type: BOOKING_LOADED,
+        payload: {
+            bookings
+        }
+    }
+};
 
 export const parkingsLoaded = parkings => {
     return {

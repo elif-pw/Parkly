@@ -6,6 +6,9 @@ import Header from "./Header.js"
 import Footer from "./Footer.js"
 import Histogram from 'react-chart-histogram';
 
+import {connect} from 'react-redux';
+import {bookingsLoaded} from "../redux/actions";
+
 class AdminPage extends React.Component{
     constructor(props) {
         super(props);
@@ -14,6 +17,7 @@ class AdminPage extends React.Component{
             password: '',
             totBookings: 0,
             bookings:[],
+            bookingsShow:[],
             parkings:[],
             totParkings: 0,
             isValid: false,
@@ -42,7 +46,9 @@ class AdminPage extends React.Component{
        .then(
               response => {
                   this.setState({bookings: response.data})
+                  this.setState({bookingsShow: response.data[1,5]})
                   this.setState({totBookings: this.state.bookings.length})
+                  this.props.bookingsLoaded(response.data);
                }
            )
         ParkingDataService.retrieveAllParkings()
@@ -52,8 +58,7 @@ class AdminPage extends React.Component{
                     })
     }
     render(){
-      const totIncome = this.state.bookings.reduce((paidAmount, booking ) => paidAmount + booking.paidAmount, 0);
-           // const totUsers =
+            const totIncome = this.state.bookings.reduce((paidAmount, booking ) => paidAmount + booking.paidAmount, 0);
             const labels = ['DEC', 'JAN', 'FEB']; // The default values, so could be seen the dynamics on histogram. Will be changed to proper ones in next updates
             const data = [324, 415, 672];
             const options = {fillColor: '#ffffff', strokeColor: '#2054a0'};
@@ -69,9 +74,10 @@ class AdminPage extends React.Component{
                           </ul>
                       </div>
                       <label className="blockLabel">LAST BOOKINGS</label>
+
                       <div className="usersTable">
                           <fieldset>
-                              <table className="adminTable">
+                              <table defaultPageSize = "3" className="adminTable">
                                   <thead>
                                   <tr>
                                       <th>Id</th>
@@ -83,9 +89,9 @@ class AdminPage extends React.Component{
                                   </thead>
                                   <tbody>
                                   {
-                                      this.state.bookings.map(
-                                          booking =>
-                                              <tr key={booking.id}>
+                                      this.state.bookings.slice(0,3).map(
+                                          (booking, index) =>
+                                               <tr key={booking.id}>
                                                   <td>{booking.id}</td>
                                                   <td>{booking.parkingId}</td>
                                                   <td>{booking.parkingSpotId}</td>
@@ -116,5 +122,16 @@ class AdminPage extends React.Component{
               );
           }
 }
-
-export default withRouter(AdminPage)
+const mapStateToProps = (state) => {
+    return {
+        bookings: state.bookings,
+        isLoaded: state.isLoaded,
+    };
+};
+const mapDispatchToProps = (dispatch) => ({
+    bookingsLoaded: bookings => dispatch(bookingsLoaded(bookings))
+});
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(AdminPage));
