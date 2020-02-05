@@ -106,9 +106,12 @@ class ParkingList extends Component {
                 <br/>
                 <b><label className="parkingLabel">ZIP: </label>
                 {parking.zip}</b>
+                <br/>
+                <b><label className="parkingLabel">Price:</label>
+                {parking.price}</b>
                 </div>
 
-                <div className="smallParkingBlock">
+                <div className="smallParkingBlock">  
                 <b><label className="parkingLabel">24/7:</label>
                 {parking.is247 ? "yes" : "no"}</b>
                 <br/>
