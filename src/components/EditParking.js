@@ -14,12 +14,12 @@ import {parkingDeleted, parkingFetched, parkingUpdated} from "../redux/actions";
 import {connect} from "react-redux";
 
 const options = [
-    {label: "Indoors Parking", value: "Indoors Parking"},
-    {label: "Outdoors Parking", value: "Outdoors Parking"},
-    {label: "Parking for disabled", value: "Parking for disabled"},
-    {label: "Parking for pregnant women", value: "Parking for pregnant women"},
-    {label: "Parking for electric cars", value: "Parking for electric cars"},
-    {label: "Parking for electric bikes", value: "Parking for electric bikes"}
+    {label: " Indoors Parking ", value: " Indoors Parking "},
+    {label: " Outdoors Parking ", value: " Outdoors Parking "},
+    {label: " Parking for disabled ", value: " Parking for disabled "},
+    {label: " Parking for pregnant women ", value: " Parking for pregnant women "},
+    {label: " Parking for electric cars ", value: " Parking for electric cars "},
+    {label: " Parking for electric bikes ", value: " Parking for electric bikes "}
 ];
 const styles = {
     chip: {
@@ -104,8 +104,8 @@ class EditParking extends Component {
         console.log(this.state)
         if (this.state.name === '' ||
             this.state.city === '' || this.state.zip === ''
-            || this.state.address === '' || this.state.price === 0
-            || this.state.nspots === 0)
+            || this.state.address === '' || this.state.price < 1
+            || this.state.nspots < 1)
             return false;
         return true;
     }
@@ -133,7 +133,7 @@ class EditParking extends Component {
                     }
                 })
             :
-            this.setState({errormessage: "All fields should be filled! Number of spots or the price cannot be 0!"})
+            this.setState({errormessage: "All fields should be filled! Number of spots and the price should be a positive number!"})
 
     };
     handleFormDelete = event => {

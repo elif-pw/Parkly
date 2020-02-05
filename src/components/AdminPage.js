@@ -125,7 +125,7 @@ class AdminPage extends React.Component{
 const mapStateToProps = (state) => {
     return {
         bookings: state.bookings,
-        isLoaded: state.isLoaded,
+        isBookingLoaded: state.isBookingLoaded,
     };
 };
 

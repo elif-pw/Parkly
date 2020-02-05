@@ -8,6 +8,7 @@ import {
 export const initialState = {
     parkings: [],
     bookings: [],
+    isBookingLoaded: false,
     isLoaded: false,
     parking: undefined,
     parking_id: undefined
@@ -19,7 +20,7 @@ const appReducer = (state = initialState, action) => {
             case BOOKING_LOADED: {
                 const {bookings} = action.payload;
                 return {
-                    ...state, bookings, isLoaded: true
+                    ...state, bookings, isBookingLoaded: true
                     };
             }
             case PARKING_LOADED: {
