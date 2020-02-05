@@ -128,9 +128,11 @@ const mapStateToProps = (state) => {
         isLoaded: state.isLoaded,
     };
 };
+
 const mapDispatchToProps = (dispatch) => ({
     bookingsLoaded: bookings => dispatch(bookingsLoaded(bookings))
 });
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps

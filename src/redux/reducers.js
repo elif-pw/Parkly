@@ -1,4 +1,5 @@
 import {
+    BOOKING_LOADED,
     PARKING_LOADED, PARKING_ADDED,
     PARKING_UPDATED, PARKING_DELETED,
     PARKING_FETCHED, PARKING_ADDED_SUCCESS
@@ -6,6 +7,7 @@ import {
 
 export const initialState = {
     parkings: [],
+    bookings: [],
     isLoaded: false,
     parking: undefined,
     parking_id: undefined
@@ -14,6 +16,12 @@ export const initialState = {
 
 const appReducer = (state = initialState, action) => {
         switch (action.type) {
+            case BOOKING_LOADED: {
+                const {bookings} = action.payload;
+                return {
+                    ...state, bookings, isLoaded: true
+                    };
+            }
             case PARKING_LOADED: {
                 const {parkings} = action.payload;
                 return {
