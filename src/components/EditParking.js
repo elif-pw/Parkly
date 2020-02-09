@@ -53,6 +53,7 @@ class EditParking extends Component {
             nspots: '',
             is247: '',
             errormessage: '',
+            parking:[]
 
 
         }
@@ -81,21 +82,24 @@ class EditParking extends Component {
     //     //     );
     // }
     componentDidMount() {
+    var i;
         //this.props.dispatchFetch(this.props.match.params.id);
         ParkingDataService.retrieveAllParkings()
                     .then(response => response.data)
-                    .then(parkings => {
+                    .then(parkings => {if (this.state.id){
+                            for (i = 0; i < parkings.length; i++) {
+                              if (parkings[i].id == this.state.id)
+                                this.setState({parking: parkings[i]});
+                            }
                             this.props.parkingsLoaded(parkings);
-
-                            this.setState({name: parkings[this.state.id].name });
-                            this.setState({city: parkings[this.state.id].city});
-                            this.setState({district: parkings[this.state.id].district});
-                            this.setState({address: parkings[this.state.id].address});
-                            this.setState({price: parkings[this.state.id].price});
-                            this.setState({nspots: parkings[this.state.id].nspots});
-                            this.setState({is247: parkings[this.state.id].is247});
-                            this.setState({zip: parkings[this.state.id].zip});
-
+                            this.setState({name: this.state.parking.name });
+                            this.setState({city: this.state.parking.city});
+                            this.setState({district: this.state.parking.district});
+                            this.setState({address: this.state.parking.address});
+                            this.setState({price: this.state.parking.price});
+                            this.setState({nspots: this.state.parking.nspots});
+                            this.setState({is247: this.state.parking.is247});
+                            this.setState({zip: this.state.parking.zip});}
                         }
                     )
     }
