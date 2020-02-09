@@ -44,6 +44,7 @@ class ParkingList extends Component {
             )
 
     }
+
     handleSearch(e) {
         let currentList = [];
         let newList = [];
@@ -78,7 +79,7 @@ class ParkingList extends Component {
             <div>
                 <Header/>
                 <Row>
-                        <Col>
+                        <Col className="searchField">
                             <Input type="text" className='search-input' onChange={this.handleSearch} placeholder="Search by name or city..." />
                         </Col>
                 </Row>

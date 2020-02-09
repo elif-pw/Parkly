@@ -10,6 +10,7 @@ import Buisness from "./components/Buisness";
 import Settings from "./components/Settings";
 import Privacy from "./components/Privacy"
 import Advertising from "./components/Advertising";
+import Welcome from "./components/Welcome"
 import About from "./components/About";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import Logout from "./components/Logout";
@@ -56,6 +57,9 @@ class App extends Component {
                                 </AuthenticatedRoute>
                                 <AuthenticatedRoute exact path="/settings">
                                      <Settings />
+                                </AuthenticatedRoute>
+                                <AuthenticatedRoute exact path="/welcome">
+                                     <Welcome />
                                 </AuthenticatedRoute>
                                 <AuthenticatedRoute exact path="/advertising">
                                      <Advertising />

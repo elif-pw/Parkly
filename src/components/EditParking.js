@@ -5,12 +5,13 @@ import ParkingDataService from "../service/ParkingDataService";
 import {
     Link
 } from "react-router-dom";
+import {parkingsLoaded} from "../redux/actions";
 import './Component.css'
 import Header from "./Header.js"
 import Footer from "./Footer.js"
 import MultiSelect from "@khanacademy/react-multi-select";
 import Chip from '@material-ui/core/Chip';
-import {parkingDeleted, parkingFetched, parkingUpdated} from "../redux/actions";
+import {parkingDeleted, parkingLoaded, parkingUpdated} from "../redux/actions";
 import {connect} from "react-redux";
 
 const options = [
@@ -45,6 +46,7 @@ class EditParking extends Component {
             name: '',
             city: '',
             district: '',
+            zip:'',
             address: '',
             price: '',
             description: [],
@@ -79,7 +81,23 @@ class EditParking extends Component {
     //     //     );
     // }
     componentDidMount() {
-        this.props.dispatchFetch(this.props.match.params.id);
+        //this.props.dispatchFetch(this.props.match.params.id);
+        ParkingDataService.retrieveAllParkings()
+                    .then(response => response.data)
+                    .then(parkings => {
+                            this.props.parkingsLoaded(parkings);
+
+                            this.setState({name: parkings[this.state.id].name });
+                            this.setState({city: parkings[this.state.id].city});
+                            this.setState({district: parkings[this.state.id].district});
+                            this.setState({address: parkings[this.state.id].address});
+                            this.setState({price: parkings[this.state.id].price});
+                            this.setState({nspots: parkings[this.state.id].nspots});
+                            this.setState({is247: parkings[this.state.id].is247});
+                            this.setState({zip: parkings[this.state.id].zip});
+
+                        }
+                    )
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -203,7 +221,6 @@ class EditParking extends Component {
             </div>
         )
     }
-
 
     render() {
         const {description} = this.state;
@@ -344,7 +361,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     dispatchDelete: (id) => dispatch(parkingDeleted(id)),
     dispatchUpdate: parking => dispatch(parkingUpdated(parking)),
-    dispatchFetch: id => dispatch(parkingFetched(id))
+    //dispatchFetch: id => dispatch(parkingFetched(id)),
+    parkingsLoaded: parkings => dispatch(parkingsLoaded(parkings))
 });
 export default connect(
     mapStateToProps,

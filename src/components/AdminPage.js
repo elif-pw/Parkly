@@ -8,6 +8,7 @@ import Histogram from 'react-chart-histogram';
 
 import {connect} from 'react-redux';
 import {bookingsLoaded} from "../redux/actions";
+import { BeatLoader} from 'react-spinners';
 
 class AdminPage extends React.Component{
     constructor(props) {
@@ -20,43 +21,41 @@ class AdminPage extends React.Component{
             bookingsShow:[],
             parkings:[],
             totParkings: 0,
+            isLoading: true,
             isValid: false,
         }
         this.onChangeEvent = this.onChangeEvent.bind(this);
         this.validateForm = this.validateForm(this);
-        this.handleSubmit = this.handleSubmit(this);
     }
 
     validateForm() {
         return this.state.login.length > 0 && this.state.password.length > 0;
-      }
-
-    handleSubmit(event) {
-
     }
+
     componentDidMount() {
-           this.refresh();
+            this.setState({isLoading: true})
+           BookingDataService.retrieveAllBookings()
+                  .then(
+                         response => {
+                             this.setState({bookings: response.data})
+                             this.setState({bookingsShow: response.data[1,5]})
+                             this.setState({totBookings: this.state.bookings.length})
+                             this.props.bookingsLoaded(response.data);
+                          }
+                      )
+                   ParkingDataService.retrieveAllParkings()
+                               .then(response => {
+                                   this.setState({parkings: response.data})
+                                   this.setState({totParkings: this.state.parkings.length})
+                                   this.setState({isLoading: false})
+                               })
+
     }
 
     onChangeEvent(event) {
         this.setState({[event.target.name]: event.target.value});
-        }
-    refresh() {
-       BookingDataService.retrieveAllBookings()
-       .then(
-              response => {
-                  this.setState({bookings: response.data})
-                  this.setState({bookingsShow: response.data[1,5]})
-                  this.setState({totBookings: this.state.bookings.length})
-                  this.props.bookingsLoaded(response.data);
-               }
-           )
-        ParkingDataService.retrieveAllParkings()
-                    .then(response => {
-                        this.setState({parkings: response.data})
-                        this.setState({totParkings: this.state.parkings.length})
-                    })
     }
+
     render(){
             const totIncome = this.state.bookings.reduce((paidAmount, booking ) => paidAmount + booking.paidAmount, 0);
             const labels = ['DEC', 'JAN', 'FEB']; // The default values, so could be seen the dynamics on histogram. Will be changed to proper ones in next updates
@@ -65,10 +64,10 @@ class AdminPage extends React.Component{
               return(
                   <div className="AdminPage">
                       <Header />
-                      <div className="leftBlock">
+                      {!this.state.isLoading ? <div><div className="leftBlock">
                       <div>
                           <ul className="genInfo">
-                          <li className="genblock1">BOOKED SPOTS <h4>{this.state.totBookings}</h4></li>
+                          <li className="genblock1">BOOKED SPOTS <h4>{this.state.bookings.length}</h4></li>
                           <li className="genblock2">TOTAL INCOME<h4>{totIncome}zl</h4> </li>
                           <li className="genblock3">TOTAL PARKINGS<h4>{this.state.totParkings}</h4></li>
                           </ul>
@@ -77,7 +76,7 @@ class AdminPage extends React.Component{
 
                       <div className="usersTable">
                           <fieldset>
-                              <table defaultPageSize = "3" className="adminTable">
+                              <table className="adminTable">
                                   <thead>
                                   <tr>
                                       <th>Id</th>
@@ -98,7 +97,6 @@ class AdminPage extends React.Component{
                                                   <td>{booking.userId}</td>
                                                   <td>{booking.paidAmount}zl</td>
                                               </tr>
-
                                       )
                                   }
                                   </tbody>
@@ -115,8 +113,14 @@ class AdminPage extends React.Component{
                                 width='350'
                                 height='350'
                                 options={options}
-                            />
-                      </div>
+                           />
+                      </div> </div>:
+                      <div className='sweet-loading'>
+                           <BeatLoader
+                              color={'#2f5fbc'}
+                              loading={!this.props.isLoaded}
+                           />
+                      </div>}
                       <Footer />
                   </div>
               );

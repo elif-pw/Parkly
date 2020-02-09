@@ -22,8 +22,9 @@
 }
 
 body {
+    text-align: center;
     padding-bottom: 40px;
-    min-width: 1000px;
+    min-width: 1200px;
 }
 
 .userloggedin {
@@ -31,7 +32,9 @@ body {
     margin: 20px;
 }
 
-
+.searchField {
+    margin: 10px;
+}
 
 .adminTable {
     float:left;
@@ -40,6 +43,34 @@ body {
     width: 100%;
     align-items: center;
     justify-content: center;
+}
+
+.welcome1 {
+    margin: auto;
+    padding: 150px;
+    width: 1200px;
+    height:100px;
+    font-size: 72px;
+    font-color: #2054a0;
+    color: #2054a0;
+}
+
+.welcome-enter {
+    opacity: 0.01;
+}
+
+.welcome-enter.welcome-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in;
+}
+
+welcome-leave {
+    opacity: 1;
+}
+
+.welcome-leave.welcome-leave-active {
+    opacity: 0.01;
+    transition:opacity 300ms ease-in;
 }
 
 .top-menu:after {
@@ -291,12 +322,16 @@ p {
 
 }
 
+fieldset {
+    margin: auto;
+}
+
+
+
 .newParkingForm {
     text-align: center;
-    margin: 35px;
+    margin: 35px auto;
     width: 400px;
-    align-items: center;
-    justify-content: center;
 }
 
 .parkingList {
@@ -395,13 +430,12 @@ th, td {
 }
 
 .loginGroup {
+    background: rgba(255, 255, 255, .5);
+    box-shadow: 3px 0 7px rgba(0, 0, 0, .3);
     color: #555;
     font-family: 'Roboto';
-    width: 320px;
-    padding: 20px;
-    padding-right: 30px;
-    padding-left: 10px;
-    border: 1px solid #555;
+    width: 340px;
+    padding: 30px;
     border-radius: 5px;
 }
 
@@ -457,7 +491,7 @@ th, td {
 .logButton {
     height: 40px;
     margin-top: 15px;
-    width: 280px;
+    width: 260px;
     display: inline-block;
     padding: 10px 25px;
     font-size: 18px;
@@ -500,7 +534,15 @@ th, td {
     margin-bottom: 10px;
 }
 
+.checkmark {
+  margin-left: 10px;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
 .leftBlock {
+    min-size: 700px;
     display: inline-block;
     float: left;
     width: 60vw;
@@ -536,7 +578,7 @@ th, td {
 }
 
 .loginLogo {
-    width: 250px;
+    width: 220px;
 }
 
 .Login {

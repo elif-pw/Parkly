@@ -74,8 +74,13 @@ const appReducer = (state = initialState, action) => {
                     return state;
                 }
             }
+
             case PARKING_FETCHED: {
+
                 const {id} = action.payload;
+                console.log(id + "qwe");
+                console.log("qweasd");
+                console.log(state.parkings[id]);
                 const theparking = state.parkings.find(i => i.id == id);
                 if (theparking) {
                     return {...state, parking: theparking}

@@ -29,11 +29,13 @@ class BookingList extends Component {
                 this.props.bookingsLoaded(bookings);
             })
     }
+
     componentDidMount() {
         if (!this.props.isBookingLoaded) {
             this.refresh();
         }
     }
+
     handlefilter(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -66,6 +68,7 @@ class BookingList extends Component {
                 <label>
           Upcoming:
           <input
+            className= "checkmark"
             name="isfuture"
             type="checkbox"
             checked={this.state.isfuture}
